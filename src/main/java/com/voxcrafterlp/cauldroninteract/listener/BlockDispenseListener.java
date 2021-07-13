@@ -2,7 +2,6 @@ package com.voxcrafterlp.cauldroninteract.listener;
 
 import com.voxcrafterlp.cauldroninteract.CauldronInteract;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -17,8 +16,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Cauldron;
 import org.bukkit.material.MaterialData;
-
-import java.util.Locale;
 
 /**
  * This file was created by VoxCrafter_LP!
