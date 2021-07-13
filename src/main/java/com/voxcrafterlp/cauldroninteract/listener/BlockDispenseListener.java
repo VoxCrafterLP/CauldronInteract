@@ -2,7 +2,9 @@ package com.voxcrafterlp.cauldroninteract.listener;
 
 import com.voxcrafterlp.cauldroninteract.CauldronInteract;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Dispenser;
@@ -15,6 +17,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Cauldron;
 import org.bukkit.material.MaterialData;
+
+import java.util.Locale;
 
 /**
  * This file was created by VoxCrafter_LP!
@@ -54,12 +58,15 @@ public class BlockDispenseListener implements Listener {
                     switch (item.getType()) {
                         case WATER_BUCKET:
                             dispenseBlock.setType(Material.WATER_CAULDRON);
+                            dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL, 1, 1);
                             break;
                         case LAVA_BUCKET:
                             dispenseBlock.setType(Material.LAVA_CAULDRON);
+                            dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL_LAVA, 1, 1);
                             break;
                         case POWDER_SNOW_BUCKET:
                             dispenseBlock.setType(Material.POWDER_SNOW_CAULDRON);
+                            dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL_POWDER_SNOW, 1, 1);
                             break;
                     }
 
@@ -95,9 +102,12 @@ public class BlockDispenseListener implements Listener {
                     switch (dispenseBlock.getType()) {
                         case WATER_CAULDRON:
                             this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.WATER_BUCKET), true);
+                            dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY, 1, 1);
                             break;
                         case POWDER_SNOW_CAULDRON:
-                            this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.POWDER_SNOW_BUCKET), true);                                break;
+                            this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.POWDER_SNOW_BUCKET), true);
+                            dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY_POWDER_SNOW, 1, 1);
+                            break;
                     }
 
                     //Triggers a CauldronLevelChangeEvent
@@ -106,6 +116,7 @@ public class BlockDispenseListener implements Listener {
                     break;
                 case LAVA_CAULDRON:
                     this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.LAVA_BUCKET), true);
+                    dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY_LAVA, 1, 1);
                     break;
             }
         }
