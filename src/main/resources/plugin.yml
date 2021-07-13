@@ -1,0 +1,5 @@
+name: CauldronInteract
+version: 1.0
+author: VoxCrafter_LP
+main: com.voxcrafterlp.cauldroninteract.CauldronInteract
+api-version: 1.17
