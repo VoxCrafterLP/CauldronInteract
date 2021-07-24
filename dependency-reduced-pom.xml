@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.voxcrafterlp</groupId>
   <artifactId>CauldronInteract</artifactId>
-  <version>1.0-RELEASE</version>
+  <version>1.1.0-RELEASE</version>
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.4</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -40,28 +40,6 @@
       <artifactId>spigot-api</artifactId>
       <version>1.17.1-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-lang</artifactId>
-          <groupId>commons-lang</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>guava</artifactId>
-          <groupId>com.google.guava</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>gson</artifactId>
-          <groupId>com.google.code.gson</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>bungeecord-chat</artifactId>
-          <groupId>net.md-5</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>snakeyaml</artifactId>
-          <groupId>org.yaml</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -75,4 +53,3 @@
     <maven.compiler.target>8</maven.compiler.target>
   </properties>
 </project>
-
