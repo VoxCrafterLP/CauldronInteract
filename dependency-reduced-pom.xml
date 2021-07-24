@@ -21,7 +21,7 @@
           <relocations>
             <relocation>
               <pattern>org.bstats</pattern>
-              <shadedPattern>com.voxcrafterlp.cauldroninteract.utils</shadedPattern>
+              <shadedPattern>com.voxcrafterlp.cauldroninteract.utils.bstats</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
