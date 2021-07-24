@@ -15,4 +15,4 @@ The installation is fairly straightforward. Download the plugin from the  [relea
 If you have found a bug or you want to request a feature, feel free to [create an issue](https://github.com/VoxCrafterLP/CauldronInteract/issues/new).
 
 ## License
-This project is licensed under the GNU GPL v3 and may be used accordingly. Further information can be found [here](https://github.com/VoxCrafterLP/CauldronInteract/blob/main/LICENSE).
+This project is licensed under the GNU GPL v3 and may be used accordingly. Further information can be found [here](https://github.com/VoxCrafterLP/CauldronInteract/blob/master/LICENSE).
