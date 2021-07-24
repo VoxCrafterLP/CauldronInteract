@@ -1,5 +1,7 @@
 # CauldronInteract
 
+[![build](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/maven.yml/badge.svg)](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/maven.yml)
+
 CauldronInteract is a simple 1.17 plugin, which enables dispensers to interact with cauldrons. Dispensers can use buckets to fill or empty a cauldron. Bottles are currently not supported.
 
 ## Use case
