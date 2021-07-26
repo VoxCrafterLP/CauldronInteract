@@ -32,7 +32,7 @@ public class CauldronInteract extends JavaPlugin {
 
     private void registerListener() {
         final PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(new BlockDispenseListener(), this);
+        //pluginManager.registerEvents(new BlockDispenseListener(), this);
     }
 
     /**
