@@ -3,6 +3,8 @@
 [![build](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/maven.yml/badge.svg)](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/maven.yml)
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/VoxCrafterLP/CauldronInteract/total?label=Downloads)
 ![GitHub](https://img.shields.io/github/license/VoxCrafterLP/CauldronInteract)
+![MC version](https://img.shields.io/badge/Minecraft%20version-1.17.x%20or%20higher-brightgreen)
+![bStats Servers](https://img.shields.io/bstats/servers/12031)
 
 CauldronInteract is a simple 1.17 plugin, which enables dispensers to interact with cauldrons. Dispensers can use buckets to fill or empty a cauldron. Bottles are currently not supported.
 
@@ -12,7 +14,13 @@ A possible use for this plugin would be an integration into an automatic lava fa
 
 ## Installation
 
-The installation is fairly straightforward. Download the plugin from the  [releases tab](https://github.com/VoxCrafterLP/CauldronInteract/releases) and put the .jar file into the plugins folder. Make sure that you are using a 1.17+ server.
+The installation is fairly straightforward. Download the plugin from the [releases tab](https://github.com/VoxCrafterLP/CauldronInteract/releases) and put the .jar file into the `plugins` folder. Make sure that you are using a 1.17+ server.
+
+For a terminal environment, use this:
+```bash
+cd plugins/
+wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.1.0/CauldronInteract-1.1.0-RELEASE.jar
+```
 
 ## Bugreports and features
 
