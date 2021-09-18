@@ -30,15 +30,18 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
         final Dispenser dispenser = (Dispenser) event.getBlock().getState();
         final ItemStack item = event.getItem();
 
+        //Gets the block in front of the dispenser.
+        final BlockFace blockFace = this.getFacing(dispenser.getData());
+        final Block dispenseBlock = event.getBlock().getRelative(blockFace);
+
+        if(dispenseBlock.getType() != Material.CAULDRON && dispenseBlock.getType() != Material.WATER_CAULDRON
+            && dispenseBlock.getType() != Material.LAVA_CAULDRON && dispenseBlock.getType() != Material.POWDER_SNOW_CAULDRON) return;
+
         if(item.getType() == Material.WATER_BUCKET ||
             item.getType() == Material.LAVA_BUCKET ||
             item.getType() == Material.POWDER_SNOW_BUCKET ||
             item.getType() == Material.BUCKET ||
             item.getType() == Material.GLASS_BOTTLE) {
-
-            //Gets the block in front of the dispenser.
-            final BlockFace blockFace = this.getFacing(dispenser.getData());
-            final Block dispenseBlock = event.getBlock().getRelative(blockFace);
 
             event.setCancelled(true);
 
