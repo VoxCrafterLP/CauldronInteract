@@ -19,7 +19,7 @@ The installation is fairly straightforward. Download the plugin from the [releas
 For a terminal environment, use this:
 ```bash
 cd plugins/
-wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.1.0/CauldronInteract-1.1.0-RELEASE.jar
+wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.1.1/CauldronInteract-1.1.1-RELEASE.jar
 ```
 
 ## Bugreports and features
