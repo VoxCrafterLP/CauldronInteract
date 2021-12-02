@@ -19,12 +19,12 @@ The installation is fairly straightforward. Download the plugin from the [releas
 For a terminal environment, use this:
 ```bash
 cd plugins/
-wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.1.1/CauldronInteract-1.1.1-RELEASE.jar
+wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.2.0/CauldronInteract-1.2.0-RELEASE.jar
 ```
 
 ## Bugreports and features
 
-If you have found a bug or you want to request a feature, feel free to [create an issue](https://github.com/VoxCrafterLP/CauldronInteract/issues/new).
+If you have found a bug, or you want to request a feature, feel free to [create an issue](https://github.com/VoxCrafterLP/CauldronInteract/issues/new).
 
 ## License
 This project is licensed under the GNU GPL v3 and may be used accordingly. Further information can be found [here](https://github.com/VoxCrafterLP/CauldronInteract/blob/master/LICENSE).
