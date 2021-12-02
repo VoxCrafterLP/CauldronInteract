@@ -59,8 +59,11 @@ public abstract class CauldronUtils {
         dispenser.update(true);
         block.getState().update(true);
 
-        if(resetCauldron)
+        if(resetCauldron) {
+            System.out.println("reset");
             block.getRelative(this.getFacing(block)).setType(Material.CAULDRON);
+        }
+
     }
 
     /**
@@ -72,7 +75,7 @@ public abstract class CauldronUtils {
      * @throws IllegalArgumentException Thrown if the newLevel is incorrect
      */
     protected void updateCauldronWaterLevel(Block block, int newLevel, CauldronLevelChangeEvent.ChangeReason reason) throws IllegalArgumentException {
-        if(!(newLevel > 0 && newLevel < 4))
+        if(!(newLevel >= 1 && newLevel <= 3))
             throw new IllegalArgumentException("The acceptable range is between 1 and 3.");
 
         final Levelled cauldronData = (Levelled) block.getBlockData();

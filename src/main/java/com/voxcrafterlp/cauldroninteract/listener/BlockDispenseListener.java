@@ -106,7 +106,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                                     this.updateCauldronWaterLevel(dispenseBlock, waterLevel - 1,
                                             CauldronLevelChangeEvent.ChangeReason.BOTTLE_FILL);
 
-                                this.modifyDispenserInventory(event.getBlock(), item, this.getWaterBottleItemStack(), (waterLevel < 1));
+                                this.modifyDispenserInventory(event.getBlock(), item, this.getWaterBottleItemStack(), (waterLevel == 1));
                                 dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BOTTLE_FILL, 1, 1);
                                 return;
                             }
@@ -127,12 +127,17 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                             CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
                     break;
                 case LAVA_CAULDRON:
+                    if(item.getType() != Material.BUCKET) {
+                        event.setCancelled(false);
+                        return;
+                    }
+
                     this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.LAVA_BUCKET), true);
                     dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY_LAVA, 1, 1);
 
-                    //Triggers a CauldronLevelChangeEvent
-                    Bukkit.getPluginManager().callEvent(new CauldronLevelChangeEvent(dispenseBlock, null,
-                            CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
+                        //Triggers a CauldronLevelChangeEvent
+                        Bukkit.getPluginManager().callEvent(new CauldronLevelChangeEvent(dispenseBlock, null,
+                                CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
                     break;
             }
         }
