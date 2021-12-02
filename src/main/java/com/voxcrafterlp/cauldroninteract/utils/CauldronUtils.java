@@ -59,11 +59,8 @@ public abstract class CauldronUtils {
         dispenser.update(true);
         block.getState().update(true);
 
-        if(resetCauldron) {
-            System.out.println("reset");
+        if(resetCauldron)
             block.getRelative(this.getFacing(block)).setType(Material.CAULDRON);
-        }
-
     }
 
     /**
