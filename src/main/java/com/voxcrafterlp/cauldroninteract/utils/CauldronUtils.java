@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Dispenser;
+import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Levelled;
 import org.bukkit.event.block.CauldronLevelChangeEvent;
 import org.bukkit.inventory.Inventory;
@@ -59,7 +60,7 @@ public abstract class CauldronUtils {
         block.getState().update(true);
 
         if(resetCauldron)
-            block.getRelative(this.getFacing(dispenser.getData())).setType(Material.CAULDRON);
+            block.getRelative(this.getFacing(block)).setType(Material.CAULDRON);
     }
 
     /**
@@ -92,10 +93,20 @@ public abstract class CauldronUtils {
     }
 
     /**
+     * Gets the BlockFace of a {@link Directional} block
+     * @param block Directional block
+     * @return Returns the BlockFace of the dispenser
+     */
+    protected BlockFace getFacing(final Block block) {
+        return (block.getBlockData() instanceof Directional) ? ((Directional) block.getBlockData()).getFacing() : BlockFace.SELF;
+    }
+
+    /**
      * Method copied from the {@link org.bukkit.material.Dispenser} class
      * Source code can be found here: https://github.com/Bukkit/Bukkit/blob/master/src/main/java/org/bukkit/material/Dispenser.java#L83
      * @param materialData MaterialData of the dispenser
      * @return Returns the BlockFace of the dispenser
+     * @deprecated Use {@link #getFacing(Block)} instead
      */
     protected BlockFace getFacing(MaterialData materialData) {
         int data = materialData.getData() & 0x7;
@@ -133,6 +144,10 @@ public abstract class CauldronUtils {
         itemStack.setItemMeta(potionMeta);
 
         return itemStack;
+    }
+
+    protected boolean isFull(Levelled levelled) {
+        return levelled.getLevel() == levelled.getMaximumLevel();
     }
 
 }

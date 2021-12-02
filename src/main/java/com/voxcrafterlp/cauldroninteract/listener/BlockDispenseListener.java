@@ -7,12 +7,12 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Dispenser;
+import org.bukkit.block.data.Levelled;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.CauldronLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Cauldron;
 
 /**
  * This file was created by VoxCrafter_LP!
@@ -31,7 +31,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
         final ItemStack item = event.getItem();
 
         //Gets the block in front of the dispenser.
-        final BlockFace blockFace = this.getFacing(dispenser.getData());
+        final BlockFace blockFace = this.getFacing(event.getBlock());
         final Block dispenseBlock = event.getBlock().getRelative(blockFace);
 
         if(dispenseBlock.getType() != Material.CAULDRON && dispenseBlock.getType() != Material.WATER_CAULDRON
@@ -81,9 +81,9 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                 case WATER_CAULDRON:
                 case POWDER_SNOW_CAULDRON:
                     if(dispenseBlock.getType() == Material.WATER_CAULDRON) {
-                        final Cauldron cauldron = (Cauldron) dispenseBlock.getState().getData();
+                        final Levelled cauldron = (Levelled) dispenseBlock.getBlockData();
 
-                        if(!cauldron.isFull() && item.getType() == Material.BUCKET) {
+                        if(!this.isFull(cauldron) && item.getType() == Material.BUCKET) {
                             event.setCancelled(false);
                             return;
                         }
