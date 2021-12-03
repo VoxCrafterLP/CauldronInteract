@@ -1,5 +1,8 @@
 package com.voxcrafterlp.cauldroninteract;
 
+import com.lezurex.githubversionchecker.CheckResult;
+import com.lezurex.githubversionchecker.GithubVersionChecker;
+import com.lezurex.githubversionchecker.ReleaseVersion;
 import com.voxcrafterlp.cauldroninteract.listener.BlockDispenseListener;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;
@@ -21,6 +24,7 @@ public class CauldronInteract extends JavaPlugin {
     private static CauldronInteract instance;
     private Metrics metrics;
 
+    private static final String consolePrefix = "§7[§bCauldronInteract§7] ";
 
     @Override
     public void onEnable() {
@@ -29,7 +33,8 @@ public class CauldronInteract extends JavaPlugin {
         this.registerListener();
         this.loadMetrics();
         //this.initializeLegacyMaterialSupport();
-        Bukkit.getConsoleSender().sendMessage("§aCauldronInteract v" + this.getDescription().getVersion() + " by VoxCrafter_LP enabled!");
+        Bukkit.getConsoleSender().sendMessage(consolePrefix + "§av" + this.getDescription().getVersion() + " by VoxCrafter_LP enabled!");
+        Bukkit.getScheduler().runTaskAsynchronously(this, this::checkForUpdates);
     }
 
     private void registerListener() {
@@ -50,7 +55,7 @@ public class CauldronInteract extends JavaPlugin {
      * @deprecated Isn't needed anymore
      */
     private void initializeLegacyMaterialSupport() {
-        Bukkit.getConsoleSender().sendMessage("§7[§bCauldronInteract§7] §7Initializing legacy material support. This can take a while!");
+        Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7Initializing legacy material support. This can take a while!");
 
         try {
             final String serverVersion = this.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
@@ -62,7 +67,32 @@ public class CauldronInteract extends JavaPlugin {
             return;
         }
 
-        Bukkit.getConsoleSender().sendMessage("§7[§bCauldronInteract§7] §aDone!");
+        Bukkit.getConsoleSender().sendMessage(consolePrefix + "§aDone!");
+    }
+
+    /**
+     * Checks for plugin updates on GitHub.
+     */
+    private void checkForUpdates() {
+        Bukkit.getConsoleSender().sendMessage(consolePrefix + "§aChecking for updates...");
+
+        try {
+            final ReleaseVersion currentVersion = new ReleaseVersion(this.getDescription().getVersion());
+            final GithubVersionChecker versionChecker = new GithubVersionChecker("VoxCrafterLP", "CauldronInteract", currentVersion, false);
+            final CheckResult checkResult = versionChecker.check();
+
+            switch (checkResult.getVersionState()) {
+                case OUTDATED:
+                    Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7There is a §anewer §7version available§8: §2" + checkResult.getVersion().toString());
+                    break;
+                case NEWER:
+                case UP_TO_DATE:
+                    Bukkit.getConsoleSender().sendMessage(consolePrefix + "§aYou are up to date.");
+                    break;
+            }
+        } catch (Exception exception) {
+            Bukkit.getConsoleSender().sendMessage(consolePrefix + "§cAn error occurred while checking for updates...");
+        }
     }
 
 }

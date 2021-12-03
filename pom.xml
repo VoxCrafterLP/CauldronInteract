@@ -4,9 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <developers>
+        <developer>
+            <name>VoxCrafter_LP</name>
+            <email>voxcrafterlp@gmail.com</email>
+            <url>https://voxcrafter.dev/</url>
+        </developer>
+    </developers>
+
     <groupId>com.voxcrafterlp</groupId>
     <artifactId>CauldronInteract</artifactId>
-    <version>1.2.0-RELEASE</version>
+    <version>1.2.1-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,6 +25,10 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>voxcrafter-repo</id>
+            <url>https://repo.voxcrafter.dev/repository/maven-releases/</url>
         </repository>
     </repositories>
 
@@ -39,6 +51,12 @@
             <version>2.2.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.lezurex</groupId>
+            <artifactId>github-version-checker</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -52,6 +70,10 @@
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>com.voxcrafterlp.cauldroninteract.utils.bstats</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.lezurex.githubversionchecker</pattern>
+                            <shadedPattern>com.voxcrafterlp.cauldroninteract.utils.githubversionchecker</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
