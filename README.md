@@ -6,7 +6,7 @@
 ![MC version](https://img.shields.io/badge/Minecraft%20version-1.17.x%20or%20higher-brightgreen)
 ![bStats Servers](https://img.shields.io/bstats/servers/12031)
 
-CauldronInteract is a simple 1.17 plugin, which enables dispensers to interact with cauldrons. Dispensers can use buckets to fill or empty a cauldron. Bottles are currently not supported.
+CauldronInteract is a simple 1.17+ plugin, which enables dispensers to interact with cauldrons. Dispensers can use buckets to fill or empty a cauldron. Bottles are currently not supported.
 
 ## Use case
 
