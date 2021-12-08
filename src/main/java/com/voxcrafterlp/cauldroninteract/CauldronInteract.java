@@ -1,14 +1,20 @@
 package com.voxcrafterlp.cauldroninteract;
 
+import com.google.common.collect.Lists;
 import com.lezurex.githubversionchecker.CheckResult;
 import com.lezurex.githubversionchecker.GithubVersionChecker;
 import com.lezurex.githubversionchecker.ReleaseVersion;
 import com.voxcrafterlp.cauldroninteract.listener.BlockDispenseListener;
+import com.voxcrafterlp.cauldroninteract.listener.InventoryMoveItemListener;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 /**
  * This file was created by VoxCrafter_LP!
@@ -26,9 +32,12 @@ public class CauldronInteract extends JavaPlugin {
 
     private static final String consolePrefix = "§7[§bCauldronInteract§7] ";
 
+    private List<Inventory> blockedInventories;
+
     @Override
     public void onEnable() {
         instance = this;
+        this.blockedInventories = Lists.newCopyOnWriteArrayList();
 
         this.registerListener();
         this.loadMetrics();
@@ -40,6 +49,7 @@ public class CauldronInteract extends JavaPlugin {
     private void registerListener() {
         final PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new BlockDispenseListener(), this);
+        pluginManager.registerEvents(new InventoryMoveItemListener(), this);
     }
 
     /**

@@ -9,6 +9,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Dispenser;
 import org.bukkit.block.data.Levelled;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.CauldronLevelChangeEvent;
@@ -23,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class BlockDispenseListener extends CauldronUtils implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockDispense(BlockDispenseEvent event) {
         if(event.getBlock().getType() != Material.DISPENSER) return;
 

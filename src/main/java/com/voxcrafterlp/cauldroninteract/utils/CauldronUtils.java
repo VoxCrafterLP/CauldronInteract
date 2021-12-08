@@ -8,6 +8,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Dispenser;
 import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Levelled;
+import org.bukkit.block.data.type.Hopper;
 import org.bukkit.event.block.CauldronLevelChangeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +16,9 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This file was created by VoxCrafter_LP!
@@ -40,6 +44,9 @@ public abstract class CauldronUtils {
     protected void modifyDispenserInventory(Block block, ItemStack remove, ItemStack add, boolean resetCauldron) {
         final Dispenser dispenser = (Dispenser) block.getState();
 
+        if(!CauldronInteract.getInstance().getBlockedInventories().contains(dispenser.getInventory()))
+            CauldronInteract.getInstance().getBlockedInventories().add(dispenser.getInventory());
+
         Bukkit.getScheduler().scheduleSyncDelayedTask(CauldronInteract.getInstance(), () -> {
             final Inventory dispenserInventory = dispenser.getInventory();
 
@@ -53,6 +60,7 @@ public abstract class CauldronUtils {
                 dispenserInventory.remove(remove);
 
             dispenserInventory.addItem(add);
+            CauldronInteract.getInstance().getBlockedInventories().remove(dispenserInventory);
         }, 1);
 
         //Updates the dispenser block
