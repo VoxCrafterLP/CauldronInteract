@@ -8,9 +8,10 @@
 
 CauldronInteract is a simple 1.17+ plugin, which enables dispensers to interact with cauldrons. Dispensers can use buckets to fill or empty a cauldron. Filling bottles is also supported.
 
+Tested versions: 1.17, 1.18, 1.19
 ## Use case
 
-A possible use for this plugin would be an integration into an automatic lava farm using the new dripstone blocks. This would allow dispensers to empty the cauldrons and fill chests with lava buckets.
+A possible use for this plugin would be an integration into an automatic lava farm using dripstone blocks. This would allow dispensers to empty the cauldrons and fill chests with lava buckets.
 
 ## Installation
 

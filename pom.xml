@@ -14,7 +14,7 @@
 
     <groupId>com.voxcrafterlp</groupId>
     <artifactId>CauldronInteract</artifactId>
-    <version>1.2.1-RELEASE</version>
+    <version>1.2.2-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>

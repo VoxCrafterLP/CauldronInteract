@@ -1,6 +1,6 @@
 name: CauldronInteract
-version: 1.2.1
+version: 1.2.2
 api-version: 1.17
 author: VoxCrafter_LP
 main: com.voxcrafterlp.cauldroninteract.CauldronInteract
-description: A simple plugin, which enables dispensers to interact with cauldrons
+description: A simple plugin which enables dispensers to interact with cauldrons
