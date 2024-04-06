@@ -40,7 +40,6 @@ public class CauldronInteract extends JavaPlugin {
 
         this.registerListener();
         this.loadMetrics();
-        //this.initializeLegacyMaterialSupport();
         Bukkit.getConsoleSender().sendMessage(consolePrefix + "§av" + this.getDescription().getVersion() + " by VoxCrafter_LP enabled!");
         Bukkit.getScheduler().runTaskAsynchronously(this, this::checkForUpdates);
     }
@@ -57,26 +56,6 @@ public class CauldronInteract extends JavaPlugin {
     private void loadMetrics() {
         final int pluginId = 12031;
         this.metrics = new Metrics(this, pluginId);
-    }
-
-    /**
-     * Initializes legacy material support
-     * @deprecated Isn't needed anymore
-     */
-    private void initializeLegacyMaterialSupport() {
-        Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7Initializing legacy material support. This can take a while!");
-
-        try {
-            final String serverVersion = this.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-            final Class<?> craftLegacy = Class.forName("org.bukkit.craftbukkit." + serverVersion + ".legacy.CraftLegacy");
-            craftLegacy.getMethod("init").invoke(null);
-        } catch (Exception exception) {
-            Bukkit.getConsoleSender().sendMessage("§4An error occurred while initializing the plugin! Please report this!");
-            Bukkit.getPluginManager().disablePlugin(this);
-            return;
-        }
-
-        Bukkit.getConsoleSender().sendMessage(consolePrefix + "§aDone!");
     }
 
     /**

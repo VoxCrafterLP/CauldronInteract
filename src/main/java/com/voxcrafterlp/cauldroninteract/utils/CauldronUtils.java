@@ -27,35 +27,43 @@ public abstract class CauldronUtils {
 
     /**
      * Removes an item from the dispenser's inventory and
-     * replaces it with another one.
-     *
+     * replaces it with another one. If the dispenser's inventory is full, the new item will be dropped below
+     * the dispenser.
      * There has to be a delay of 1 tick, because otherwise the dispenser
      * wouldn't contain the dispensed ItemStack.
      *
-     * @param block Dispenser block
-     * @param remove ItemStack that should be removed from the dispenser's inventory
-     * @param add ItemStack that should be added to the dispenser's inventory
+     * @param block         Dispenser block
+     * @param remove        ItemStack that should be removed from the dispenser's inventory
+     * @param add           ItemStack that should be added to the dispenser's inventory
      * @param resetCauldron Determines if the cauldron should be reset to the default cauldron
      */
     protected void modifyDispenserInventory(Block block, ItemStack remove, ItemStack add, boolean resetCauldron) {
         final Dispenser dispenser = (Dispenser) block.getState();
 
-        if(!CauldronInteract.getInstance().getBlockedInventories().contains(dispenser.getInventory()))
+        if (!CauldronInteract.getInstance().getBlockedInventories().contains(dispenser.getInventory()))
             CauldronInteract.getInstance().getBlockedInventories().add(dispenser.getInventory());
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(CauldronInteract.getInstance(), () -> {
             final Inventory dispenserInventory = dispenser.getInventory();
 
-            if(remove.getAmount() > 1) {
-                dispenserInventory.forEach(itemStack -> {
-                    if(itemStack == null) return;
-                    if(itemStack.equals(remove))
-                        itemStack.setAmount(itemStack.getAmount() - 1);
-                });
-            } else
-                dispenserInventory.remove(remove);
+            // Handle remove
+            if (remove.getAmount() > 1) {
+                final int removeIndex = dispenserInventory.first(remove);
+                final ItemStack newItemStack = dispenserInventory.getItem(removeIndex);
 
-            dispenserInventory.addItem(add);
+                if (newItemStack != null) {
+                    newItemStack.setAmount(newItemStack.getAmount() - 1);
+                    dispenserInventory.setItem(removeIndex, newItemStack);
+                }
+            } else
+                dispenserInventory.setItem(dispenserInventory.first(remove), new ItemStack(Material.AIR));
+
+            // Handle add
+            if (dispenserInventory.firstEmpty() == -1)
+                dispenser.getWorld().dropItem(dispenser.getLocation().add(0.5, -0.75, 0.5), add);
+            else
+                dispenserInventory.addItem(add);
+
             CauldronInteract.getInstance().getBlockedInventories().remove(dispenserInventory);
         }, 1);
 
@@ -63,20 +71,21 @@ public abstract class CauldronUtils {
         dispenser.update(true);
         block.getState().update(true);
 
-        if(resetCauldron)
+        if (resetCauldron)
             block.getRelative(this.getFacing(block)).setType(Material.CAULDRON);
     }
 
     /**
      * Updates the water level of a cauldron and
      * triggers a {@link CauldronLevelChangeEvent}.
-     * @param block Cauldron block
+     *
+     * @param block    Cauldron block
      * @param newLevel New water level (Range: 1-3)
-     * @param reason Update reason
+     * @param reason   Update reason
      * @throws IllegalArgumentException Thrown if the newLevel is incorrect
      */
     protected void updateCauldronWaterLevel(Block block, int newLevel, CauldronLevelChangeEvent.ChangeReason reason) throws IllegalArgumentException {
-        if(!(newLevel >= 1 && newLevel <= 3))
+        if (!(newLevel >= 1 && newLevel <= 3))
             throw new IllegalArgumentException("The acceptable range is between 1 and 3.");
 
         final Levelled cauldronData = (Levelled) block.getBlockData();
@@ -89,6 +98,7 @@ public abstract class CauldronUtils {
 
     /**
      * Gets the water level of cauldron
+     *
      * @param block Cauldron block
      * @return Returns the water level (Range: 1-3)
      */
@@ -98,6 +108,7 @@ public abstract class CauldronUtils {
 
     /**
      * Gets the BlockFace of a {@link Directional} block
+     *
      * @param block Directional block
      * @return Returns the BlockFace of the dispenser
      */
@@ -107,7 +118,8 @@ public abstract class CauldronUtils {
 
     /**
      * Method copied from the {@link org.bukkit.material.Dispenser} class
-     * Source code can be found here: https://github.com/Bukkit/Bukkit/blob/master/src/main/java/org/bukkit/material/Dispenser.java#L83
+     * Source code can be found here: <a href="https://github.com/Bukkit/Bukkit/blob/master/src/main/java/org/bukkit/material/Dispenser.java#L83">...</a>
+     *
      * @param materialData MaterialData of the dispenser
      * @return Returns the BlockFace of the dispenser
      * @deprecated Use {@link #getFacing(Block)} instead
@@ -115,30 +127,19 @@ public abstract class CauldronUtils {
     protected BlockFace getFacing(MaterialData materialData) {
         int data = materialData.getData() & 0x7;
 
-        switch (data) {
-            case 0x0:
-                return BlockFace.DOWN;
-
-            case 0x1:
-                return BlockFace.UP;
-
-            case 0x2:
-                return BlockFace.NORTH;
-
-            case 0x3:
-                return BlockFace.SOUTH;
-
-            case 0x4:
-                return BlockFace.WEST;
-
-            case 0x5:
-            default:
-                return BlockFace.EAST;
-        }
+        return switch (data) {
+            case 0x0 -> BlockFace.DOWN;
+            case 0x1 -> BlockFace.UP;
+            case 0x2 -> BlockFace.NORTH;
+            case 0x3 -> BlockFace.SOUTH;
+            case 0x4 -> BlockFace.WEST;
+            default -> BlockFace.EAST;
+        };
     }
 
     /**
      * Builds a water bottle {@link ItemStack}
+     * @deprecated Potion data is deprecated, remains in use to maintain 1.17 compatibility
      * @return Water bottle ItemStack
      */
     protected ItemStack getWaterBottleItemStack() {
