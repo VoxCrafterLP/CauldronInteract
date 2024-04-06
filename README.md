@@ -3,7 +3,7 @@
 [![build](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/maven.yml/badge.svg)](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/maven.yml)
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/VoxCrafterLP/CauldronInteract/total?label=Downloads)
 ![GitHub](https://img.shields.io/github/license/VoxCrafterLP/CauldronInteract)
-![MC version](https://img.shields.io/badge/Minecraft%20version-1.17%20-%201.20-brightgreen)
+![MC version](https://img.shields.io/badge/Minecraft%20version-1.17.x%20or%20higher-brightgreen)
 ![bStats Servers](https://img.shields.io/bstats/servers/12031)
 
 CauldronInteract is a simple 1.17+ plugin, which enables dispensers to interact with cauldrons. Dispensers can use buckets to fill or empty a cauldron. Filling bottles is also supported.
