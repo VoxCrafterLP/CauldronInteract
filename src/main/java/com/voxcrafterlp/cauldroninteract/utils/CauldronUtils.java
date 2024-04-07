@@ -46,17 +46,20 @@ public abstract class CauldronUtils {
         Bukkit.getScheduler().scheduleSyncDelayedTask(CauldronInteract.getInstance(), () -> {
             final Inventory dispenserInventory = dispenser.getInventory();
 
-            // Handle remove
-            if (remove.getAmount() > 1) {
-                final int removeIndex = dispenserInventory.first(remove);
+            /*
+             * The BlockDispenseEvent returns the dispensed itemstack.
+             * The amount of the itemstack is always 1, EXCEPT for empty glass bottles *which totally makes sense*
+             */
+            final int removeIndex = remove.getAmount() > 1 ?
+                    dispenserInventory.first(remove) :
+                    dispenserInventory.first(remove.getType());
+
+            if (removeIndex != -1) {
                 final ItemStack newItemStack = dispenserInventory.getItem(removeIndex);
 
-                if (newItemStack != null) {
-                    newItemStack.setAmount(newItemStack.getAmount() - 1);
-                    dispenserInventory.setItem(removeIndex, newItemStack);
-                }
-            } else
-                dispenserInventory.setItem(dispenserInventory.first(remove), new ItemStack(Material.AIR));
+                newItemStack.setAmount(newItemStack.getAmount() - 1);
+                dispenserInventory.setItem(removeIndex, newItemStack);
+            }
 
             // Handle add
             if (dispenserInventory.firstEmpty() == -1)
@@ -139,8 +142,9 @@ public abstract class CauldronUtils {
 
     /**
      * Builds a water bottle {@link ItemStack}
-     * @deprecated Potion data is deprecated, remains in use to maintain 1.17 compatibility
+     *
      * @return Water bottle ItemStack
+     * @deprecated Potion data is deprecated, remains in use to maintain 1.17 compatibility
      */
     protected ItemStack getWaterBottleItemStack() {
         final ItemStack itemStack = new ItemStack(Material.POTION, 1);
