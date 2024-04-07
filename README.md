@@ -13,6 +13,8 @@ Tested versions: 1.17, 1.18, 1.19, 1.20
 
 A possible use for this plugin would be an integration into an automatic lava farm using dripstone blocks. This would allow dispensers to empty the cauldrons and fill chests with lava buckets.
 
+<img src="/images/2024-04-07_21.48.31.png" width="800">
+
 ## Installation
 
 The installation is fairly straightforward. Download the plugin from the [releases tab](https://github.com/VoxCrafterLP/CauldronInteract/releases) and put the .jar file into the `plugins` folder. Make sure that you are using a 1.17+ server.
@@ -20,7 +22,7 @@ The installation is fairly straightforward. Download the plugin from the [releas
 For a terminal environment, use this:
 ```bash
 cd plugins/
-wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.2.2/CauldronInteract-1.2.2-RELEASE.jar
+wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.2.3/CauldronInteract-1.2.3-RELEASE.jar
 ```
 
 ## Bugreports and features

@@ -49,6 +49,7 @@ public abstract class CauldronUtils {
             /*
              * The BlockDispenseEvent returns the dispensed itemstack.
              * The amount of the itemstack is always 1, EXCEPT for empty glass bottles *which totally makes sense*
+             * Applies only to 1.17, newer versions don't have this bug
              */
             final int removeIndex = remove.getAmount() > 1 ?
                     dispenserInventory.first(remove) :
