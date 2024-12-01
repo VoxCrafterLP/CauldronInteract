@@ -31,16 +31,29 @@ public class CauldronInteract extends JavaPlugin {
         instance = this;
         this.blockedInventories = Lists.newCopyOnWriteArrayList();
 
+        this.saveDefaultConfig();
         this.registerListener();
-        this.loadMetrics();
-        Bukkit.getConsoleSender().sendMessage(consolePrefix + "§av" + this.getDescription().getVersion() + " by VoxCrafter_LP enabled!");
-        Bukkit.getScheduler().runTaskAsynchronously(this, this::checkForUpdates);
+
+        if (this.getConfig().getBoolean("enable-metrics"))
+            this.loadMetrics();
+
+        this.printConsoleInformation();
+
+        if (this.getConfig().getBoolean("enable-version-checker"))
+            Bukkit.getScheduler().runTaskAsynchronously(this, this::checkForUpdates);
     }
 
     private void registerListener() {
         final PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new BlockDispenseListener(), this);
         pluginManager.registerEvents(new InventoryMoveItemListener(), this);
+    }
+
+    private void printConsoleInformation() {
+        Bukkit.getConsoleSender().sendMessage(consolePrefix + (this.getConfig().getBoolean("enable-metrics") ?
+                "§7Metrics are turned on. Disable metrics in the config to opt out of bStats metrics collection." :
+                "§7Metrics are turned off."));
+        Bukkit.getConsoleSender().sendMessage(consolePrefix + "§av" + this.getDescription().getVersion() + " by VoxCrafter_LP enabled!");
     }
 
     /**

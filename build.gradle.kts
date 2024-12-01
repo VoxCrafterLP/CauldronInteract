@@ -27,6 +27,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.36")
     implementation("org.bstats:bstats-bukkit:3.0.2")
     implementation("com.lezurex:github-version-checker:1.0.2")
+    implementation("com.google.guava:guava:33.3.1-jre")
 }
 
 java {
@@ -45,7 +46,7 @@ tasks.shadowJar {
     archiveBaseName = "CauldronInteract"
     relocate("org.bstats", "com.voxcrafterlp.cauldroninteract.utils.bstats")
     relocate("com.lezurex.githubversionchecker", "com.voxcrafterlp.cauldroninteract.utils.githubversionchecker")
-    relocate("com.google", "com.voxcrafterlp.cauldroninteract.utils.githubversionchecker.google")
+    relocate("com.google", "com.voxcrafterlp.cauldroninteract.utils.google")
 }
 
 tasks.withType<JavaCompile>() {
