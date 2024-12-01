@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.voxcrafterlp"
-version = "1.2.3-RELEASE"
+version = "1.3.0-RELEASE"
 
 repositories {
     mavenCentral()

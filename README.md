@@ -1,10 +1,11 @@
 # CauldronInteract
 
-[![build](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/maven.yml/badge.svg)](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/maven.yml)
+[![build](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/gradle.yml/badge.svg)](https://github.com/VoxCrafterLP/CauldronInteract/actions/workflows/gradle.yml)
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/VoxCrafterLP/CauldronInteract/total?label=Downloads)
 ![GitHub](https://img.shields.io/github/license/VoxCrafterLP/CauldronInteract)
 ![MC version](https://img.shields.io/badge/Minecraft%20version-1.17.x%20or%20higher-brightgreen)
 ![bStats Servers](https://img.shields.io/bstats/servers/12031)
+![Static Badge](https://img.shields.io/badge/Link-Modrinth-%2300AF5C?logo=modrinth&link=https%3A%2F%2Fmodrinth.com%2Fplugin%2Fcauldroninteract)
 
 CauldronInteract is a simple 1.17+ plugin, which enables dispensers to interact with cauldrons. Dispensers can use buckets to fill or empty a cauldron. Filling bottles is also supported.
 
@@ -34,12 +35,13 @@ enable-dispenser-upgrade: true
 
 ## Installation
 
-The installation is fairly straightforward. Download the plugin from the [releases tab](https://github.com/VoxCrafterLP/CauldronInteract/releases) and put the .jar file into the `plugins` folder. Make sure that you are using a 1.17+ server.
+The installation is fairly straightforward. Download the plugin from the [releases tab](https://github.com/VoxCrafterLP/CauldronInteract/releases) and put the .jar file into 
+the `plugins` folder. Make sure that you are using a 1.17+ server.
 
 For a terminal environment, use this:
 ```bash
 cd plugins/
-wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.2.3/CauldronInteract-1.2.3-RELEASE.jar
+wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.3.0/CauldronInteract-1.3.0-RELEASE.jar
 ```
 
 ## Bugreports and features
