@@ -6,9 +6,12 @@ import com.lezurex.githubversionchecker.GithubVersionChecker;
 import com.lezurex.githubversionchecker.ReleaseVersion;
 import com.voxcrafterlp.cauldroninteract.listener.BlockDispenseListener;
 import com.voxcrafterlp.cauldroninteract.listener.InventoryMoveItemListener;
+import com.voxcrafterlp.cauldroninteract.listener.PlayerInteractListener;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,6 +50,9 @@ public class CauldronInteract extends JavaPlugin {
         final PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new BlockDispenseListener(), this);
         pluginManager.registerEvents(new InventoryMoveItemListener(), this);
+
+        if (CauldronInteract.getInstance().getConfig().getBoolean("enable-dispenser-upgrade"))
+            pluginManager.registerEvents(new PlayerInteractListener(), this);
     }
 
     private void printConsoleInformation() {
@@ -62,6 +68,8 @@ public class CauldronInteract extends JavaPlugin {
     private void loadMetrics() {
         final int pluginId = 12031;
         this.metrics = new Metrics(this, pluginId);
+        this.metrics.addCustomChart(new SimplePie("servers_using_upgraded_dispensers", () ->
+                String.valueOf(getConfig().getBoolean("enable-dispenser-upgrade"))));
     }
 
     /**
@@ -88,6 +96,10 @@ public class CauldronInteract extends JavaPlugin {
         } catch (Exception exception) {
             Bukkit.getConsoleSender().sendMessage(consolePrefix + "§cAn error occurred while checking for updates...");
         }
+    }
+
+    public NamespacedKey getDispenserUpgradedKey() {
+        return new NamespacedKey(CauldronInteract.getInstance(), "dispenser-upgraded");
     }
 
 }

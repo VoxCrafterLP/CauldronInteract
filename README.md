@@ -15,6 +15,23 @@ A possible use for this plugin would be an integration into an automatic lava fa
 
 <img src="/images/2024-04-07_21.48.31.png" width="800">
 
+## Configurable option: Upgradable dispensers
+
+This feature enables players to individually select dispensers that can interact with cauldrons. For instance, 
+this can be useful if the plugin disrupts a redstone circuit. To upgrade a dispenser, players need to hold a hoe and 
+shift-right-click the dispenser..
+
+If this feature is toggled off and then back on, all previously upgraded dispensers will continue to function as before.
+
+<img src="/images/2024-12-01_22.25.07.png" width="800">
+
+To enable this option, enable the feature in the plugin's config.
+```yaml
+# If enabled every dispenser will have to be upgraded first to unlock the ability to interact with a cauldron.
+# Dispensers can be upgraded by being shift-right-clicked while holding a hoe.
+enable-dispenser-upgrade: true
+```
+
 ## Installation
 
 The installation is fairly straightforward. Download the plugin from the [releases tab](https://github.com/VoxCrafterLP/CauldronInteract/releases) and put the .jar file into the `plugins` folder. Make sure that you are using a 1.17+ server.

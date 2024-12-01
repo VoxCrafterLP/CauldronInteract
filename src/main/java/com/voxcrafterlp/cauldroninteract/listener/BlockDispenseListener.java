@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Dispenser;
 import org.bukkit.block.data.Levelled;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,6 +27,12 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockDispense(BlockDispenseEvent event) {
         if (event.getBlock().getType() != Material.DISPENSER) return;
+
+        if (CauldronInteract.getInstance().getConfig().getBoolean("enable-dispenser-upgrade") &&
+                !((Dispenser) event.getBlock().getState()).getPersistentDataContainer()
+                        .has(CauldronInteract.getInstance().getDispenserUpgradedKey())) {
+            return;
+        }
 
         final ItemStack item = event.getItem();
 

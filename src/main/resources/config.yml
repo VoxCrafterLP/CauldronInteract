@@ -4,6 +4,10 @@ enable-metrics: true
 # Change this value to "false" to disable automatic version checking on startup
 enable-version-checker: true
 
+# If enabled every dispenser will have to be upgraded first to unlock the ability to interact with a cauldron.
+# Dispensers can be upgraded by being shift-right-clicked while holding a hoe.
+enable-dispenser-upgrade: false
+
 # Enable/disable certain functionality
 enable-water-cauldron: true
 enable-lava-cauldron: true
