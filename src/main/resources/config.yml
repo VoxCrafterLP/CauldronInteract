@@ -1,0 +1,11 @@
+# Change this value to "false" to opt out of bStats metrics collection
+enable-metrics: true
+
+# Change this value to "false" to disable automatic version checking on startup
+enable-version-checker: true
+
+# Enable/disable certain functionality
+enable-water-cauldron: true
+enable-lava-cauldron: true
+enable-powder-snow-cauldron: true
+enable-bottles: true

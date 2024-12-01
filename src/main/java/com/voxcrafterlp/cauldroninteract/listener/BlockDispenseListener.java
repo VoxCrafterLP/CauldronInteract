@@ -1,5 +1,6 @@
 package com.voxcrafterlp.cauldroninteract.listener;
 
+import com.voxcrafterlp.cauldroninteract.CauldronInteract;
 import com.voxcrafterlp.cauldroninteract.utils.CauldronUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -48,14 +49,29 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                     // Sets the correct cauldron type for every fluid.
                     switch (item.getType()) {
                         case WATER_BUCKET:
+                            if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-water-cauldron")) {
+                                event.setCancelled(false);
+                                return;
+                            }
+
                             dispenseBlock.setType(Material.WATER_CAULDRON);
                             dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL, 1, 1);
                             break;
                         case LAVA_BUCKET:
+                            if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-lava-cauldron")) {
+                                event.setCancelled(false);
+                                return;
+                            }
+
                             dispenseBlock.setType(Material.LAVA_CAULDRON);
                             dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL_LAVA, 1, 1);
                             break;
                         case POWDER_SNOW_BUCKET:
+                            if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-powder-snow-cauldron")) {
+                                event.setCancelled(false);
+                                return;
+                            }
+
                             dispenseBlock.setType(Material.POWDER_SNOW_CAULDRON);
                             dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL_POWDER_SNOW, 1, 1);
                             break;
@@ -73,14 +89,50 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                     }
                     break;
                 case WATER_CAULDRON:
-                case POWDER_SNOW_CAULDRON:
-                    if (dispenseBlock.getType() == Material.WATER_CAULDRON) {
-                        final Levelled cauldron = (Levelled) dispenseBlock.getBlockData();
+                    if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-water-cauldron") && item.getType() == Material.WATER_BUCKET) {
+                        event.setCancelled(false);
+                        return;
+                    }
 
-                        if (!this.isFull(cauldron) && item.getType() == Material.BUCKET) {
+                    if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-bottles") && item.getType() == Material.GLASS_BOTTLE) {
+                        event.setCancelled(false);
+                        return;
+                    }
+
+                    final Levelled cauldron = (Levelled) dispenseBlock.getBlockData();
+                    if (!this.isFull(cauldron) && item.getType() == Material.BUCKET) {
+                        event.setCancelled(false);
+                        return;
+                    }
+
+                    switch (item.getType()) {
+                        case BUCKET:
+                            this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.WATER_BUCKET), true);
+                            dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY, 1, 1);
+                            break;
+                        case GLASS_BOTTLE:
+                            final int waterLevel = this.getCauldronWaterLevel(dispenseBlock);
+
+                            if (waterLevel > 1)
+                                this.updateCauldronWaterLevel(dispenseBlock, waterLevel - 1,
+                                        CauldronLevelChangeEvent.ChangeReason.BOTTLE_FILL);
+
+                            this.modifyDispenserInventory(event.getBlock(), item, this.getWaterBottleItemStack(), (waterLevel == 1));
+                            dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BOTTLE_FILL, 1, 1);
+                            return;
+                        default:
                             event.setCancelled(false);
                             return;
-                        }
+                    }
+
+                    // Triggers a CauldronLevelChangeEvent
+                    Bukkit.getPluginManager().callEvent(new CauldronLevelChangeEvent(dispenseBlock, null,
+                            CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
+                    break;
+                case POWDER_SNOW_CAULDRON:
+                    if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-powder-snow-cauldron")) {
+                        event.setCancelled(false);
+                        return;
                     }
 
                     if (item.getType() != Material.BUCKET && item.getType() != Material.GLASS_BOTTLE) {
@@ -88,39 +140,24 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                         return;
                     }
 
-                    switch (dispenseBlock.getType()) {
-                        case WATER_CAULDRON:
-                            if (item.getType() == Material.BUCKET) {
-                                this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.WATER_BUCKET), true);
-                                dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY, 1, 1);
-                            } else {
-                                final int waterLevel = this.getCauldronWaterLevel(dispenseBlock);
-
-                                if (waterLevel > 1)
-                                    this.updateCauldronWaterLevel(dispenseBlock, waterLevel - 1,
-                                            CauldronLevelChangeEvent.ChangeReason.BOTTLE_FILL);
-
-                                this.modifyDispenserInventory(event.getBlock(), item, this.getWaterBottleItemStack(), (waterLevel == 1));
-                                dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BOTTLE_FILL, 1, 1);
-                                return;
-                            }
-                            break;
-                        case POWDER_SNOW_CAULDRON:
-                            if (item.getType() != Material.BUCKET) {
-                                event.setCancelled(false);
-                                return;
-                            }
-
-                            this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.POWDER_SNOW_BUCKET), true);
-                            dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY_POWDER_SNOW, 1, 1);
-                            break;
+                    if (item.getType() != Material.BUCKET) {
+                        event.setCancelled(false);
+                        return;
                     }
+
+                    this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.POWDER_SNOW_BUCKET), true);
+                    dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY_POWDER_SNOW, 1, 1);
 
                     // Triggers a CauldronLevelChangeEvent
                     Bukkit.getPluginManager().callEvent(new CauldronLevelChangeEvent(dispenseBlock, null,
                             CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
                     break;
                 case LAVA_CAULDRON:
+                    if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-lava-cauldron")) {
+                        event.setCancelled(false);
+                        return;
+                    }
+
                     if (item.getType() != Material.BUCKET) {
                         event.setCancelled(false);
                         return;
