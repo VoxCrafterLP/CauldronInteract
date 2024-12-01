@@ -14,13 +14,6 @@ import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.CauldronLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
-/**
- * This file was created by VoxCrafter_LP!
- * Date: 13.07.2021
- * Time: 11:02
- * Project: CauldronInteract
- */
-
 public class BlockDispenseListener extends CauldronUtils implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -29,7 +22,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
 
         final ItemStack item = event.getItem();
 
-        //Gets the block in front of the dispenser.
+        // Gets the block in front of the dispenser.
         final BlockFace blockFace = this.getFacing(event.getBlock());
         final Block dispenseBlock = event.getBlock().getRelative(blockFace);
 
@@ -52,7 +45,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                         return;
                     }
 
-                    //Sets the correct cauldron type for every fluid.
+                    // Sets the correct cauldron type for every fluid.
                     switch (item.getType()) {
                         case WATER_BUCKET:
                             dispenseBlock.setType(Material.WATER_CAULDRON);
@@ -71,10 +64,10 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                     this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.BUCKET), false);
 
                     if (dispenseBlock.getType() == Material.WATER_CAULDRON || dispenseBlock.getType() == Material.POWDER_SNOW_CAULDRON) {
-                        //Fills the cauldron to the maximum level (3).
+                        // Fills the cauldron to the maximum level (3).
                         this.updateCauldronWaterLevel(dispenseBlock, 3, CauldronLevelChangeEvent.ChangeReason.BUCKET_EMPTY);
                     } else {
-                        //Triggers a CauldronLevelChangeEvent for the lava bucket
+                        // Triggers a CauldronLevelChangeEvent for the lava bucket
                         Bukkit.getPluginManager().callEvent(new CauldronLevelChangeEvent(dispenseBlock, null,
                                 CauldronLevelChangeEvent.ChangeReason.BUCKET_EMPTY, dispenseBlock.getState()));
                     }
@@ -123,7 +116,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                             break;
                     }
 
-                    //Triggers a CauldronLevelChangeEvent
+                    // Triggers a CauldronLevelChangeEvent
                     Bukkit.getPluginManager().callEvent(new CauldronLevelChangeEvent(dispenseBlock, null,
                             CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
                     break;
@@ -136,7 +129,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                     this.modifyDispenserInventory(event.getBlock(), item, new ItemStack(Material.LAVA_BUCKET), true);
                     dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_EMPTY_LAVA, 1, 1);
 
-                    //Triggers a CauldronLevelChangeEvent
+                    // Triggers a CauldronLevelChangeEvent
                     Bukkit.getPluginManager().callEvent(new CauldronLevelChangeEvent(dispenseBlock, null,
                             CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
                     break;

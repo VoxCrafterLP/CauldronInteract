@@ -16,13 +16,6 @@ import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
-/**
- * This file was created by VoxCrafter_LP!
- * Date: 26.07.2021
- * Time: 22:09
- * Project: CauldronInteract
- */
-
 public abstract class CauldronUtils {
 
     /**
@@ -71,7 +64,7 @@ public abstract class CauldronUtils {
             CauldronInteract.getInstance().getBlockedInventories().remove(dispenserInventory);
         }, 1);
 
-        //Updates the dispenser block
+        // Updates the dispenser block
         dispenser.update(true);
         block.getState().update(true);
 
@@ -96,7 +89,7 @@ public abstract class CauldronUtils {
         cauldronData.setLevel(newLevel);
         block.setBlockData(cauldronData);
 
-        //Triggers a CauldronLevelChangeEvent
+        // Triggers a CauldronLevelChangeEvent
         Bukkit.getPluginManager().callEvent(new CauldronLevelChangeEvent(block, null, reason, block.getState()));
     }
 

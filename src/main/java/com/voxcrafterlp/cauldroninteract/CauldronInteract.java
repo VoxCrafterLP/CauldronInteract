@@ -15,13 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
-/**
- * This file was created by VoxCrafter_LP!
- * Date: 13.07.2021
- * Time: 11:01
- * Project: CauldronInteract
- */
-
 @Getter
 public class CauldronInteract extends JavaPlugin {
 
@@ -71,7 +64,8 @@ public class CauldronInteract extends JavaPlugin {
 
             switch (checkResult.getVersionState()) {
                 case OUTDATED:
-                    Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7There is a §anewer §7version available§8: §2" + checkResult.getVersion().toString());
+                    Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7There is a §4newer §7version available§8: §c" + checkResult.getVersion().toString());
+                    Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7You can download the newest version here: §c" + checkResult.getPageLink());
                     break;
                 case NEWER:
                 case UP_TO_DATE:
