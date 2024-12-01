@@ -25,7 +25,7 @@ repositories {
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT")
     compileOnly("org.projectlombok:lombok:1.18.36")
-    implementation("org.bstats:bstats-bukkit:2.2.1")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
     implementation("com.lezurex:github-version-checker:1.0.2")
 }
 
