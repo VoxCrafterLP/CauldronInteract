@@ -8,4 +8,5 @@ enable-version-checker: true
 enable-water-cauldron: true
 enable-lava-cauldron: true
 enable-powder-snow-cauldron: true
-enable-bottles: true
+enable-filling-bottles: true
+enable-emptying-bottles: true
