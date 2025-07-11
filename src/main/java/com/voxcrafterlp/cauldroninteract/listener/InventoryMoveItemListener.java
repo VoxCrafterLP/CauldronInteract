@@ -10,8 +10,7 @@ public class InventoryMoveItemListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInventoryMoveItem(InventoryMoveItemEvent event) {
-        event.setCancelled(CauldronInteract.getInstance().getBlockedInventories()
-                .stream().anyMatch(inventory -> inventory.equals(event.getSource())));
+        event.setCancelled(CauldronInteract.getInstance().getBlockedInventories().contains(event.getSource()));
     }
 
 }

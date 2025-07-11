@@ -33,8 +33,7 @@ public abstract class CauldronUtils {
     protected void modifyDispenserInventory(Block block, ItemStack remove, ItemStack add, boolean resetCauldron) {
         final Dispenser dispenser = (Dispenser) block.getState();
 
-        if (!CauldronInteract.getInstance().getBlockedInventories().contains(dispenser.getInventory()))
-            CauldronInteract.getInstance().getBlockedInventories().add(dispenser.getInventory());
+        CauldronInteract.getInstance().getBlockedInventories().add(dispenser.getInventory());
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(CauldronInteract.getInstance(), () -> {
             final Inventory dispenserInventory = dispenser.getInventory();

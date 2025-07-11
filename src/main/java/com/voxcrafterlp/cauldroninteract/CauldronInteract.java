@@ -1,6 +1,5 @@
 package com.voxcrafterlp.cauldroninteract;
 
-import com.google.common.collect.Lists;
 import com.lezurex.githubversionchecker.CheckResult;
 import com.lezurex.githubversionchecker.GithubVersionChecker;
 import com.lezurex.githubversionchecker.ReleaseVersion;
@@ -16,7 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
+import java.util.HashSet;
 
 @Getter
 public class CauldronInteract extends JavaPlugin {
@@ -27,12 +26,12 @@ public class CauldronInteract extends JavaPlugin {
 
     private static final String consolePrefix = "§7[§bCauldronInteract§7] ";
 
-    private List<Inventory> blockedInventories;
+    private HashSet<Inventory> blockedInventories;
 
     @Override
     public void onEnable() {
         instance = this;
-        this.blockedInventories = Lists.newCopyOnWriteArrayList();
+        this.blockedInventories = new HashSet<>();
 
         this.saveDefaultConfig();
         this.registerListener();
@@ -87,6 +86,7 @@ public class CauldronInteract extends JavaPlugin {
                 case OUTDATED:
                     Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7There is a §4newer §7version available§8: §c" + checkResult.getVersion().toString());
                     Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7You can download the newest version here: §c" + checkResult.getPageLink());
+                    Bukkit.getConsoleSender().sendMessage(consolePrefix + "§7Alternatively, you can download it on §2Modrinth§7: §chttps://modrinth.com/plugin/cauldroninteract/versions");
                     break;
                 case NEWER:
                 case UP_TO_DATE:
