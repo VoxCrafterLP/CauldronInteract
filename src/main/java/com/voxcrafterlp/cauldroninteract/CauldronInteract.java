@@ -6,6 +6,7 @@ import com.lezurex.githubversionchecker.ReleaseVersion;
 import com.voxcrafterlp.cauldroninteract.listener.BlockDispenseListener;
 import com.voxcrafterlp.cauldroninteract.listener.InventoryMoveItemListener;
 import com.voxcrafterlp.cauldroninteract.listener.PlayerInteractListener;
+import com.voxcrafterlp.cauldroninteract.listener.SmartDispenserListeners;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
@@ -50,8 +51,12 @@ public class CauldronInteract extends JavaPlugin {
         pluginManager.registerEvents(new BlockDispenseListener(), this);
         pluginManager.registerEvents(new InventoryMoveItemListener(), this);
 
-        if (CauldronInteract.getInstance().getConfig().getBoolean("enable-dispenser-upgrade"))
+        if (CauldronInteract.getInstance().getConfig().getBoolean("enable-dispenser-upgrade")
+                || CauldronInteract.getInstance().getConfig().getBoolean("enable-smart-dispensers"))
             pluginManager.registerEvents(new PlayerInteractListener(), this);
+
+        if (CauldronInteract.getInstance().getConfig().getBoolean("enable-smart-dispensers"))
+            pluginManager.registerEvents(new SmartDispenserListeners(), this);
     }
 
     private void printConsoleInformation() {
@@ -100,6 +105,10 @@ public class CauldronInteract extends JavaPlugin {
 
     public NamespacedKey getDispenserUpgradedKey() {
         return new NamespacedKey(CauldronInteract.getInstance(), "dispenser-upgraded");
+    }
+
+    public NamespacedKey getSmartDispenserKey() {
+        return new NamespacedKey(CauldronInteract.getInstance(), "smart-dispenser");
     }
 
 }

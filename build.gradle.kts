@@ -23,11 +23,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.21.7-R0.1-SNAPSHOT")
-    compileOnly("org.projectlombok:lombok:1.18.38")
+    compileOnly("org.spigotmc:spigot-api:1.21.8-R0.1-SNAPSHOT")
+    compileOnly("org.projectlombok:lombok:1.18.42")
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("com.lezurex:github-version-checker:1.0.2")
-    implementation("com.google.guava:guava:33.4.8-jre")
+    implementation("com.google.guava:guava:33.5.0-jre")
 }
 
 java {

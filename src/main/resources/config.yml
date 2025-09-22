@@ -4,9 +4,15 @@ enable-metrics: true
 # Change this value to "false" to disable automatic version checking on startup
 enable-version-checker: true
 
-# If enabled every dispenser will have to be upgraded first to unlock the ability to interact with a cauldron.
+# If enabled, every dispenser will have to be upgraded first to unlock the ability to interact with a cauldron.
 # Dispensers can be upgraded by being shift-right-clicked while holding a hoe.
 enable-dispenser-upgrade: false
+
+# If enabled, a smart dispenser can be created by shift-right-clicking while holding a hoe in the main-hand and an
+# observer in the off-hand. A smart dispenser doesn't require an external redstone signal but waits for the cauldron
+# in front of it to fill up and then triggers itself automatically. The process of creating a smart dispenser consumes
+# an observer. A smart observer only works for naturally filled cauldrons, emptying a bucket into it won't do anything!
+enable-smart-dispensers: false
 
 # Enable/disable certain functionality
 enable-water-cauldron: true

@@ -93,7 +93,7 @@ public abstract class CauldronUtils {
     }
 
     /**
-     * Gets the water level of cauldron
+     * Gets the water level of a cauldron
      *
      * @param block Cauldron block
      * @return Returns the water level (Range: 1-3)
