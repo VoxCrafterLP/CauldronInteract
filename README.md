@@ -7,14 +7,17 @@
 ![bStats Servers](https://img.shields.io/bstats/servers/12031)
 ![Static Badge](https://img.shields.io/badge/Link-Modrinth-%2300AF5C?logo=modrinth&link=https%3A%2F%2Fmodrinth.com%2Fplugin%2Fcauldroninteract)
 
-CauldronInteract is a simple 1.17+ plugin, which enables dispensers to interact with cauldrons. Dispensers can use buckets to fill or empty a cauldron. Filling bottles is also supported.
+CauldronInteract is a simple 1.17+ plugin, which enables dispensers to interact with cauldrons. 
+Dispensers can use buckets to fill or empty a cauldron. Filling bottles is also supported.
 
 Tested versions: 1.17, 1.18, 1.19, 1.20, 1.21
 ## Use case
 
-A possible use for this plugin would be an integration into an automatic lava farm using dripstone blocks. This would allow dispensers to empty the cauldrons and fill chests with lava buckets.
+A possible use for this plugin would be an integration into an automatic lava farm using dripstone blocks. 
+This would allow dispensers to empty the cauldrons and fill chests with lava buckets.
 
-<img src="/images/2024-04-07_21.48.31.png" width="800">
+<img src="/images/2026-02-04_21.00.58.png" width="800">
+<img src="/images/2026-02-04_21.01.07.png" width="800">
 
 ## Configurable option: Upgradable dispensers
 
