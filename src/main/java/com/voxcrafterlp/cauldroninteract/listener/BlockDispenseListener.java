@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Dispenser;
 import org.bukkit.block.data.Levelled;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -20,16 +21,30 @@ import org.bukkit.persistence.PersistentDataContainer;
 public class BlockDispenseListener extends CauldronUtils implements Listener {
 
     private final ItemStack waterBottleItemStack;
+    private final boolean dispenserUpgradeEnabled;
+    private final boolean waterCauldronEnabled;
+    private final boolean lavaCauldronEnabled;
+    private final boolean powderSnowCauldronEnabled;
+    private final boolean fillingBottlesEnabled;
+    private final boolean emptyingBottlesEnabled;
 
     public BlockDispenseListener() {
         this.waterBottleItemStack = super.getWaterBottleItemStack();
+
+        final FileConfiguration config = CauldronInteract.getInstance().getConfig();
+        this.dispenserUpgradeEnabled = config.getBoolean("enable-dispenser-upgrade");
+        this.waterCauldronEnabled = config.getBoolean("enable-water-cauldron");
+        this.lavaCauldronEnabled = config.getBoolean("enable-lava-cauldron");
+        this.powderSnowCauldronEnabled = config.getBoolean("enable-powder-snow-cauldron");
+        this.fillingBottlesEnabled = config.getBoolean("enable-filling-bottles");
+        this.emptyingBottlesEnabled = config.getBoolean("enable-emptying-bottles");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockDispense(BlockDispenseEvent event) {
         if (event.getBlock().getType() != Material.DISPENSER) return;
 
-        if (CauldronInteract.getInstance().getConfig().getBoolean("enable-dispenser-upgrade")) {
+        if (this.dispenserUpgradeEnabled) {
             final PersistentDataContainer container = ((Dispenser) event.getBlock().getState()).getPersistentDataContainer();
             if (!container.has(CauldronInteract.getInstance().getDispenserUpgradedKey())
                     && !container.has(CauldronInteract.getInstance().getSmartDispenserKey())) {
@@ -67,7 +82,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                 // Sets the correct cauldron type for every fluid.
                 switch (item.getType()) {
                     case WATER_BUCKET:
-                        if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-water-cauldron")) {
+                        if (!this.waterCauldronEnabled) {
                             event.setCancelled(false);
                             return;
                         }
@@ -76,7 +91,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                         dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL, 1, 1);
                         break;
                     case LAVA_BUCKET:
-                        if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-lava-cauldron")) {
+                        if (!this.lavaCauldronEnabled) {
                             event.setCancelled(false);
                             return;
                         }
@@ -85,7 +100,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                         dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL_LAVA, 1, 1);
                         break;
                     case POWDER_SNOW_BUCKET:
-                        if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-powder-snow-cauldron")) {
+                        if (!this.powderSnowCauldronEnabled) {
                             event.setCancelled(false);
                             return;
                         }
@@ -94,7 +109,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                         dispenseBlock.getWorld().playSound(dispenseBlock.getLocation(), Sound.ITEM_BUCKET_FILL_POWDER_SNOW, 1, 1);
                         break;
                     case POTION:
-                        if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-emptying-bottles")) {
+                        if (!this.emptyingBottlesEnabled) {
                             event.setCancelled(false);
                             return;
                         }
@@ -118,17 +133,17 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                 }
                 break;
             case WATER_CAULDRON:
-                if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-water-cauldron") && item.getType() == Material.WATER_BUCKET) {
+                if (!this.waterCauldronEnabled && item.getType() == Material.WATER_BUCKET) {
                     event.setCancelled(false);
                     return;
                 }
 
-                if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-filling-bottles") && item.getType() == Material.GLASS_BOTTLE) {
+                if (!this.fillingBottlesEnabled && item.getType() == Material.GLASS_BOTTLE) {
                     event.setCancelled(false);
                     return;
                 }
 
-                if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-emptying-bottles") && item.getType() == Material.POTION) {
+                if (!this.emptyingBottlesEnabled && item.getType() == Material.POTION) {
                     event.setCancelled(false);
                     return;
                 }
@@ -175,7 +190,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                         CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
                 break;
             case POWDER_SNOW_CAULDRON:
-                if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-powder-snow-cauldron")) {
+                if (!this.powderSnowCauldronEnabled) {
                     event.setCancelled(false);
                     return;
                 }
@@ -198,7 +213,7 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
                         CauldronLevelChangeEvent.ChangeReason.BUCKET_FILL, dispenseBlock.getState()));
                 break;
             case LAVA_CAULDRON:
-                if (!CauldronInteract.getInstance().getConfig().getBoolean("enable-lava-cauldron")) {
+                if (!this.lavaCauldronEnabled) {
                     event.setCancelled(false);
                     return;
                 }

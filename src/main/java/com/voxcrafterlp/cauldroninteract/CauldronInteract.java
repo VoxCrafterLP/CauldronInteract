@@ -28,11 +28,15 @@ public class CauldronInteract extends JavaPlugin {
     private static final String consolePrefix = "§7[§bCauldronInteract§7] ";
 
     private HashSet<Inventory> blockedInventories;
+    private NamespacedKey dispenserUpgradedKey;
+    private NamespacedKey smartDispenserKey;
 
     @Override
     public void onEnable() {
         instance = this;
         this.blockedInventories = new HashSet<>();
+        this.dispenserUpgradedKey = new NamespacedKey(this, "dispenser-upgraded");
+        this.smartDispenserKey = new NamespacedKey(this, "smart-dispenser");
 
         this.saveDefaultConfig();
         this.registerListener();
@@ -101,14 +105,6 @@ public class CauldronInteract extends JavaPlugin {
         } catch (Exception exception) {
             Bukkit.getConsoleSender().sendMessage(consolePrefix + "§cAn error occurred while checking for updates...");
         }
-    }
-
-    public NamespacedKey getDispenserUpgradedKey() {
-        return new NamespacedKey(CauldronInteract.getInstance(), "dispenser-upgraded");
-    }
-
-    public NamespacedKey getSmartDispenserKey() {
-        return new NamespacedKey(CauldronInteract.getInstance(), "smart-dispenser");
     }
 
 }
