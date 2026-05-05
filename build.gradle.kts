@@ -1,7 +1,7 @@
 plugins {
     id("java")
-    id("io.freefair.lombok") version "8.6"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.freefair.lombok") version "9.5.0"
+    id("com.gradleup.shadow") version "9.4.1"
 }
 
 group = "com.voxcrafterlp"
@@ -23,15 +23,15 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.21.8-R0.1-SNAPSHOT")
-    compileOnly("org.projectlombok:lombok:1.18.42")
-    implementation("org.bstats:bstats-bukkit:3.1.0")
+    compileOnly("org.spigotmc:spigot-api:1.21.11-R0.2-SNAPSHOT")
+    compileOnly("org.projectlombok:lombok:1.18.46")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation("com.lezurex:github-version-checker:1.0.2")
-    implementation("com.google.guava:guava:33.5.0-jre")
+    implementation("com.google.guava:guava:33.6.0-jre")
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
     tasks.withType<JavaCompile> {
         options.release.set(17)
     }

@@ -53,6 +53,7 @@ public class SmartDispenserListeners extends CauldronUtils implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         dispenserCache.values().removeIf(location -> location.equals(event.getBlock().getLocation()));
+        dispenserCache.remove(event.getBlock().getLocation());
     }
 
     private Dispenser getDispenser(final Block cauldron) {

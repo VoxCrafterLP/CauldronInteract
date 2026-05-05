@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.CauldronLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
 
 public class BlockDispenseListener extends CauldronUtils implements Listener {
 
@@ -28,10 +29,12 @@ public class BlockDispenseListener extends CauldronUtils implements Listener {
     public void onBlockDispense(BlockDispenseEvent event) {
         if (event.getBlock().getType() != Material.DISPENSER) return;
 
-        if (CauldronInteract.getInstance().getConfig().getBoolean("enable-dispenser-upgrade") &&
-                !((Dispenser) event.getBlock().getState()).getPersistentDataContainer()
-                        .has(CauldronInteract.getInstance().getDispenserUpgradedKey())) {
-            return;
+        if (CauldronInteract.getInstance().getConfig().getBoolean("enable-dispenser-upgrade")) {
+            final PersistentDataContainer container = ((Dispenser) event.getBlock().getState()).getPersistentDataContainer();
+            if (!container.has(CauldronInteract.getInstance().getDispenserUpgradedKey())
+                    && !container.has(CauldronInteract.getInstance().getSmartDispenserKey())) {
+                return;
+            }
         }
 
         final ItemStack item = event.getItem();
