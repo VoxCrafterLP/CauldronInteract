@@ -36,6 +36,21 @@ To enable this option, enable the feature in the plugin's config.
 enable-dispenser-upgrade: true
 ```
 
+## Configurable option: Smart dispensers
+
+Smart dispensers automatically trigger when the cauldron in front of them fills up naturally (e.g. from rain or dripstone), without needing an external redstone signal. To create a smart dispenser, hold a hoe in your main hand and an observer in your off-hand, then shift-right-click the dispenser. The observer is consumed in the process.
+
+If the upgradable dispensers feature is also enabled, a smart dispenser counts as upgraded and does not need to be separately upgraded.
+
+To enable this option, enable the feature in the plugin's config.
+```yaml
+# If enabled, a smart dispenser can be created by shift-right-clicking while holding a hoe in the main-hand and an
+# observer in the off-hand. A smart dispenser doesn't require an external redstone signal but waits for the cauldron
+# in front of it to fill up and then triggers itself automatically. The process of creating a smart dispenser consumes
+# an observer. A smart observer only works for naturally filled cauldrons, emptying a bucket into it won't do anything!
+enable-smart-dispensers: true
+```
+
 ## Installation
 
 The installation is fairly straightforward. Download the plugin from the [releases tab](https://github.com/VoxCrafterLP/CauldronInteract/releases) and put the .jar file into 
@@ -44,7 +59,7 @@ the `plugins` folder. Make sure that you are using a 1.17+ server.
 For a terminal environment, use this:
 ```bash
 cd plugins/
-wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.3.0/CauldronInteract-1.3.0-RELEASE.jar
+wget https://github.com/VoxCrafterLP/CauldronInteract/releases/download/v1.4.0/CauldronInteract-1.4.0-RELEASE.jar
 ```
 
 ## Bugreports and features
