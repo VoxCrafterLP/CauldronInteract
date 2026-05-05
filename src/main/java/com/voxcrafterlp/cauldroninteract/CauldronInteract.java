@@ -78,6 +78,8 @@ public class CauldronInteract extends JavaPlugin {
         this.metrics = new Metrics(this, pluginId);
         this.metrics.addCustomChart(new SimplePie("servers_using_upgraded_dispensers", () ->
                 String.valueOf(getConfig().getBoolean("enable-dispenser-upgrade"))));
+        this.metrics.addCustomChart(new SimplePie("servers_using_smart_dispensers", () ->
+                String.valueOf(getConfig().getBoolean("enable-smart-dispensers"))));
     }
 
     /**
